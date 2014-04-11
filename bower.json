@@ -1,0 +1,13 @@
+{
+  "name": "baconbone",
+  "version": "0.0.1"
+  "dependencies": {
+    "jquery": "~1.11.0",
+    "bacon": "~0.7.10",
+    "lodash": "~2.4.1",
+    "backbone": "~1.1.2"
+  },
+  "devDependencies": {
+    "jasmine": "~2.0.0"
+  }
+}

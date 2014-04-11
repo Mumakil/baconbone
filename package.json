@@ -1,0 +1,15 @@
+{
+  "name": "baconbone",
+  "version": "0.0.1",
+  "description": "Bacon <3 Backbone",
+  "license": "MIT",
+  "author": "Otto Vehviläinen <otto.vehvilainen@iki.fi>",
+  "repository": "https://github.com/Mumakil/baconbone",
+  "dependencies": {
+    "grunt-bump": "0.0.11"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.7.1",
+    "bower": "^1.3.2"
+  }
+}
