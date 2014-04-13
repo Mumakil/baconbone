@@ -5,8 +5,7 @@ class Baconbone.View extends Backbone.View
     @_children = []
     super
 
-  # Adds a child view to be automatically destroyed along this
-  # view
+  # Adds a child view
   #
   #   view - View that should be destroyed when this view is removed
   #
@@ -27,13 +26,15 @@ class Baconbone.View extends Backbone.View
     view.remove()
     view
 
-  # Find a subview based on a model
+  # Find a child view based on a model or check if view is registered
+  # as child view
   #
   #   model - a model to look for in the views
   #
   # Returns the first view that has the model
-  findChild: (model) =>
-    return view for view in @_children when view.model.id == model.id
+  findChild: (modelOrView) =>
+    return modelOrView if @_children.indexOf(modelOrView) >= 0
+    return view for view in @_children when view.model.id is modelOrView.id
 
   # Removes the view and all its children.
   remove: ->

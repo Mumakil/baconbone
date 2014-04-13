@@ -13,7 +13,10 @@ module.exports = (grunt) ->
           sourceMap: true
           sourceMapDir: 'test/maps/'
         files: 
-          'test/baconbone_test.js': 'test/*.coffee'
+          'test/baconbone_test.js': [
+            'test/baconbone_test.coffee'
+            'test/*_test.coffee'
+          ]
       lib: 
         options:
           join: true
@@ -31,14 +34,13 @@ module.exports = (grunt) ->
           'lib/backbone_extensions.js': [
             'src/backbone_extensions.coffee'
             'src/model_extensions'
-          ]
-            
+          ] 
       
     jasmine: 
       all:
         src: 'lib/baconbone.js'
         options:
-          specs: 'test/baconbone_test.js'
+          specs: 'test/*_test.js'
           vendor: [
             'bower_components/jquery/dist/jquery.js'
             'bower_components/lodash/dist/lodash.js'

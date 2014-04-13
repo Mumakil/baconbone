@@ -64,8 +64,7 @@ class Baconbone.View extends Backbone.View
     @_children = []
     super
 
-  # Adds a child view to be automatically destroyed along this
-  # view
+  # Adds a child view
   #
   #   view - View that should be destroyed when this view is removed
   #
@@ -86,13 +85,15 @@ class Baconbone.View extends Backbone.View
     view.remove()
     view
 
-  # Find a subview based on a model
+  # Find a child view based on a model or check if view is registered
+  # as child view
   #
   #   model - a model to look for in the views
   #
   # Returns the first view that has the model
-  findChild: (model) =>
-    return view for view in @_children when view.model.id == model.id
+  findChild: (modelOrView) =>
+    return modelOrView if @_children.indexOf(modelOrView) >= 0
+    return view for view in @_children when view.model.id is modelOrView.id
 
   # Removes the view and all its children.
   remove: ->
@@ -109,7 +110,7 @@ class Baconbone.ModelView extends Baconbone.View
   #   {'change:name': 'updateName'}
   modelEvents: undefined
 
-  # Automatic dom bindings so that certain model properties can be bound to
+  # Automatic dom binding so that certain model properties can be bound to
   # selectors. This means that whenever the model changes, the selctor's contents
   # gets updated.
   #
@@ -127,12 +128,12 @@ class Baconbone.ModelView extends Baconbone.View
   data: ->
     @model.toJSON()
 
-  # Render the view as html string.
+  # Render the view as html string. Override for your use case.
   #
   #   data - template variables
   #
   # Returns a html string
-  template: (data) -> ''
+  renderTemplate: (data) -> ''
 
   # Binds an event handler to a model event.
   #
@@ -159,10 +160,12 @@ class Baconbone.ModelView extends Baconbone.View
       $el = if _.isString(selector) then @$(selector) else selector
       $el[if options.html then 'html' else 'text'](val)
 
-  # Renders the view. Usually it's enough to just override this.template or this.data.
+  # Renders the view. Usually it's enough to just override this.renderTemplate or this.data
+  # or use before:render and after:render events.
   render: ->
-    Bacon.once 
-    @$el.html @template(@data())
+    @trigger('before:render')
+    @$el.html @renderTemplate(@data())
+    @trigger('after:render')
     @
 
 # A view class that renders a collection
