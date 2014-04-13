@@ -21,13 +21,18 @@ module.exports = (grunt) ->
           sourceMapDir: 'lib/maps/'
         files: 
           'lib/baconbone.js': [
-            'src/bacon_extensions.coffee'
+            'src/backbone_extensions.coffee'
             'src/model_extensions.coffee'
             'src/baconbone.coffee'
             'src/baconbone_view.coffee'
             'src/baconbone_model_view.coffee'
             'src/baconbone_collection_view.coffee'
           ]
+          'lib/backbone_extensions.js': [
+            'src/backbone_extensions.coffee'
+            'src/model_extensions'
+          ]
+            
       
     jasmine: 
       all:
