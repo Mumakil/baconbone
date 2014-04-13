@@ -50,7 +50,7 @@ describe 'Baconbone.js', ->
 
   describe 'Backbone.Model', ->
 
-    it 'should have asEventStream', ->
+    it 'has asEventStream method', ->
       expect(_.isFunction Backbone.Model::asEventStream).toBe true
 
     describe '#asProperty', ->
@@ -60,23 +60,23 @@ describe 'Baconbone.js', ->
 
       it 'creates a property', ->
         prop = @model.asProperty('foo')
-        expect(prop).toBeAInstanceOf Bacon.Property
+        expect(prop instanceof Bacon.Property).toBe true
 
-      it 'should have the initial value', ->
+      it 'has initial value', ->
         spy = jasmine.createSpy()
-        unsubscribe = @model.asProperty('foo').onValue(spy)
+        @model.asProperty('foo').onValue(spy)
         expect(spy).toHaveBeenCalledWith 'bar'
 
-      it 'should trigger events on changes', ->
+      it 'triggers events on changes', ->
         spy = jasmine.createSpy()
-        unsubscribe = @model.asProperty('foo').onValue(spy)
+        @model.asProperty('foo').onValue(spy)
         @model.set foo: 'bazinga'
-        expect(spy.calls.length).toBe 2
-        expect(spy.calls[1].args[0]).toBe 'bazinga'
+        expect(spy.calls.count()).toBe 2
+        expect(spy).toHaveBeenCalledWith('bazinga')
 
-      it 'should track model.attributes without arguments', ->
+      it 'tracks all attributes without arguments', ->
         spy = jasmine.createSpy()
-        unsubscribe = @model.asProperty().onValue(spy)
+        @model.asProperty().onValue(spy)
         expect(spy).toHaveBeenCalledWith foo: 'bar'
         @model.set bar: 'baz'
         expect(spy).toHaveBeenCalledWith foo: 'bar', bar: 'baz'
@@ -85,7 +85,7 @@ describe 'Baconbone.js', ->
 
   describe 'Backbone.Collection', ->
 
-    it 'should have asEventStream', ->
+    it 'has asEventStream method', ->
       expect(_.isFunction Backbone.Collection::asEventStream).toBe true
 
   describe 'Baconbone.View', ->

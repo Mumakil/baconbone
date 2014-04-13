@@ -20,7 +20,14 @@ module.exports = (grunt) ->
           sourceMap: true
           sourceMapDir: 'lib/maps/'
         files: 
-          'lib/baconbone.js': ['src/*.coffee']
+          'lib/baconbone.js': [
+            'src/bacon_extensions.coffee'
+            'src/model_extensions.coffee'
+            'src/baconbone.coffee'
+            'src/baconbone_view.coffee'
+            'src/baconbone_model_view.coffee'
+            'src/baconbone_collection_view.coffee'
+          ]
       
     jasmine: 
       all:
@@ -41,7 +48,7 @@ module.exports = (grunt) ->
         files: ['src/*.coffee']
         tasks: ['coffee:lib', 'jasmine']
       test:
-        files: ['spec/*.coffee']
+        files: ['test/*.coffee']
         tasks: ['coffee:test', 'jasmine']
   
   grunt.registerTask 'test', ['coffee', 'jasmine']

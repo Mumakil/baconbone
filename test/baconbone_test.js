@@ -85,7 +85,7 @@
       });
     });
     describe('Backbone.Model', function() {
-      it('should have asEventStream', function() {
+      it('has asEventStream method', function() {
         return expect(_.isFunction(Backbone.Model.prototype.asEventStream)).toBe(true);
       });
       return describe('#asProperty', function() {
@@ -97,28 +97,28 @@
         it('creates a property', function() {
           var prop;
           prop = this.model.asProperty('foo');
-          return expect(prop).toBeAInstanceOf(Bacon.Property);
+          return expect(prop instanceof Bacon.Property).toBe(true);
         });
-        it('should have the initial value', function() {
-          var spy, unsubscribe;
+        it('has initial value', function() {
+          var spy;
           spy = jasmine.createSpy();
-          unsubscribe = this.model.asProperty('foo').onValue(spy);
+          this.model.asProperty('foo').onValue(spy);
           return expect(spy).toHaveBeenCalledWith('bar');
         });
-        it('should trigger events on changes', function() {
-          var spy, unsubscribe;
+        it('triggers events on changes', function() {
+          var spy;
           spy = jasmine.createSpy();
-          unsubscribe = this.model.asProperty('foo').onValue(spy);
+          this.model.asProperty('foo').onValue(spy);
           this.model.set({
             foo: 'bazinga'
           });
-          expect(spy.calls.length).toBe(2);
-          return expect(spy.calls[1].args[0]).toBe('bazinga');
+          expect(spy.calls.count()).toBe(2);
+          return expect(spy).toHaveBeenCalledWith('bazinga');
         });
-        return it('should track model.attributes without arguments', function() {
-          var spy, unsubscribe;
+        return it('tracks all attributes without arguments', function() {
+          var spy;
           spy = jasmine.createSpy();
-          unsubscribe = this.model.asProperty().onValue(spy);
+          this.model.asProperty().onValue(spy);
           expect(spy).toHaveBeenCalledWith({
             foo: 'bar'
           });
@@ -140,7 +140,7 @@
       });
     });
     describe('Backbone.Collection', function() {
-      return it('should have asEventStream', function() {
+      return it('has asEventStream method', function() {
         return expect(_.isFunction(Backbone.Collection.prototype.asEventStream)).toBe(true);
       });
     });
