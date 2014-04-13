@@ -1,6 +1,6 @@
 # Baconbone
 
-Baconbone is built to act as a thin boilerplate on top of Backbone using Bacon.js, to make dealing with events and hierarchy a bit nicer. Why? Some of this is stuff we actually use at [https://www.flowdock.com](Flowdock) and some of this is just something I've considered useful. 
+Baconbone is built to act as a thin boilerplate on top of Backbone using Bacon.js, to make dealing with events and hierarchy a bit nicer. Why? Some of this is stuff we actually use at [Flowdock](https://www.flowdock.com) and some of this is just something I've considered useful. 
 
 ## Examples
 
@@ -9,7 +9,7 @@ Baconbone is built to act as a thin boilerplate on top of Backbone using Bacon.j
 The core functionality is built by extending Backbone event functionality with `.asEventStream()`. This works exactly like Bacon.js's own `$('foo').asEventStream()`. So, everywhere `Backbone.Events` is usable, you can also get a Bacon event stream. Example
 
 Example:
-```
+```coffeescript
 Backbone.asEventStream('initialized')
   .onValue(-> console.log('Yay! Initialized!'))
 # prints 'Yay! Initialized!' to log when Backbone object triggers initialized-event
@@ -18,7 +18,7 @@ Backbone.asEventStream('initialized')
 `Backbone.Model` has an additional `.asProperty()`, that can be used to track model's attributes. If given an attribute name as a parameter, the property will always hold that attribute's value, otherwise it will hold what `model.toJSON()` will return.
 
 Example:
-```
+```coffeescript
 m = new Backbone.Model foo: 'bar'
 m.asProperty('foo').onValue((val)-> console.log('Model.foo is now', val))
 m.set(foo: 'baz')
@@ -52,7 +52,7 @@ Baconbone.View has a few functions of interest, most of which will be useful wit
 Model events: `ModelView` has an additional property that can be defined, `View::modelEvents = {}`. This is a similar hash that `view.events` and will automatically bind the named model events to the view's functions.
 
 Example:
-```
+```coffeescript
 class ExampleView extends Baconbone.ModelView
 
   modelEvents: 
@@ -63,7 +63,7 @@ class ExampleView extends Baconbone.ModelView
 DOM bindings: `ModelView` also has an optional `domBindings` property, that will automatically keep a selector up to date with model data. For example, you can instruct your view to always render model's name to DOM element '#name'.
 
 Example
-```
+```coffeescript
   # in class ExampleView ...
   
   domBindings: 
@@ -73,7 +73,7 @@ Example
 Automatic rendering: Rendering has been streamlined (if you want). By default, `view.render()` will trigger event `before:render`, then call `view.data()` that by default serializes the model with `model.toJSON()`, and last pass the data to `view.renderTemplate(data)`, which should do the rendering and return something that's sensible to pass to `@$el.html`. At minimum it's enough to replace `renderTemplate` with a template rendering function that takes the models data and returns html as string.
 
 Example:
-```
+```coffeescript
   # in class ExampleView ...
   
   template: Templates['views/example']
@@ -117,7 +117,7 @@ If you think this is useful in any way, feel free to contribute with pull reques
 
 ## Author
 
-Otto Vehviläinen [https://twitter.com/Mumakil](@Mumakil)
+Otto Vehviläinen [@Mumakil](https://twitter.com/Mumakil)
 
 ## License
 
