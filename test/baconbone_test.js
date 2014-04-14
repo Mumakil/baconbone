@@ -3,29 +3,6 @@
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  window.Helper = {};
-
-  Helper.SampleCollectionView = (function(_super) {
-    __extends(SampleCollectionView, _super);
-
-    function SampleCollectionView() {
-      return SampleCollectionView.__super__.constructor.apply(this, arguments);
-    }
-
-    SampleCollectionView.prototype.collectionEvents = {
-      'otherEvent': 'handleEvent'
-    };
-
-    SampleCollectionView.prototype.modelView = Helper.SampleModelView;
-
-    SampleCollectionView.prototype.handleEvent = function() {
-      return this.trigger('eventHandled', this);
-    };
-
-    return SampleCollectionView;
-
-  })(Baconbone.CollectionView);
-
   describe('Backbone.Events', function() {
     describe('#asEventStream', function() {
       beforeEach(function() {
