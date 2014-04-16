@@ -20,7 +20,7 @@ eventExtras =
   # Returns an EventStream
   asEventStream: (event) ->
     eventSource = @
-    new Bacon.EventStream (sink) ->
+    Bacon.fromBinder (sink) ->
       handler = (args...) ->
         reply = sink(new Bacon.Next args...)
         if reply == Bacon.noMore
